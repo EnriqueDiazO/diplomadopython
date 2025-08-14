@@ -1,18 +1,76 @@
-% common/preamble.tex — paquetes y configuración compartida
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{geometry}
-\usepackage{graphicx}
-\usepackage{xcolor}
-\usepackage{hyperref}
-\usepackage{parskip}
-\usepackage{amsmath, amssymb}
+% =========================================================
+%  Preamble común — paquetes y configuración compartida
+%  (Úsalo desde libros y plantillas Cornell)
+% =========================================================
 
-\geometry{margin=2.5cm}
+% ------------------------------
+% Codificación, tipografías, idioma
+% ------------------------------
+\usepackage[utf8]{inputenc}   % Entrada en UTF-8 (acentos directos)
+\usepackage[T1]{fontenc}      % Codificación de salida T1 (mejor separación silábica)
+\usepackage{lmodern}          % Familia Latin Modern (mejor que Computer Modern)
+% \usepackage[spanish]{babel} % (OPCIONAL) reglas tipográficas/es de español
+
+% ------------------------------
+% Maquetación y gráficos
+% ------------------------------
+\usepackage{geometry}         % Márgenes y tamaño de página
+\geometry{margin=2.5cm}       % Margen por defecto del monorepo
+\usepackage{graphicx}         % Inserción de figuras/imágenes
+\usepackage{xcolor}           % Colores (para hipervínculos, cajas, etc.)
+
+% ------------------------------
+% Hipervínculos
+% ------------------------------
+\usepackage{hyperref}         % Enlaces internos/externos
 \hypersetup{
     colorlinks=true,
-    linkcolor=blue,
-    urlcolor=blue,
-    citecolor=blue
+    linkcolor=blue,           % Color de enlaces internos (TOC, refs)
+    urlcolor=blue,            % Color de URLs
+    citecolor=blue            % Color de citas (biblatex)
 }
+
+% ------------------------------
+% Estructura de párrafos y matemáticas
+% ------------------------------
+\usepackage{parskip}          % Párrafos sin sangría + espacio vertical
+\usepackage{amsmath, amssymb} % Entornos y símbolos matemáticos
+
+% ------------------------------
+% URLs largas y microtipografía (mejora de corte de línea)
+% ------------------------------
+\usepackage{xurl}                 % Permite cortes de línea dentro de \url
+\PassOptionsToPackage{hyphens}{url}{} % Mejora cortes con hyperref/url
+\urlstyle{same}                   % Misma fuente para \url que el texto
+\usepackage{microtype}            % Ajustes sutiles de espaciado (mejor legibilidad)
+\emergencystretch=3em             % (Opcional) Relaja el corte de línea en párrafos problemáticos
+
+% ------------------------------
+% Bibliografía con biblatex/biber
+% ------------------------------
+\usepackage{csquotes} % Recomendado por biblatex (gestión de comillas)
+\usepackage[backend=biber,style=authoryear,sorting=nyt]{biblatex}
+
+% Carga ADAPTABLE del .bib según el modo de compilación:
+% - Cuando compilas con latexmk usando aux/out en latex.out (build del monorepo)
+% - Cuando compilas "in-place" (make refs) dejando main.pdf junto al .tex
+% - Como último recurso, cuando compilas desde la raíz del repo
+\makeatletter
+\IfFileExists{../../../../common/bibliography.bib}{%
+  % Caso 1: compilación con latex.out (el .aux vive en .../book/latex.out/)
+  \addbibresource{../../../../common/bibliography.bib}%
+}{%
+  \IfFileExists{../../../common/bibliography.bib}{%
+    % Caso 2: compilación in-place (el .aux vive en .../book/)
+    \addbibresource{../../../common/bibliography.bib}%
+  }{%
+    \IfFileExists{common/bibliography.bib}{%
+      % Caso 3: compilación desde la raíz del repositorio
+      \addbibresource{common/bibliography.bib}%
+    }{%
+      % Aviso para depuración si no se encuentra el .bib
+      \typeout{[WARN] bibliography.bib no encontrado en rutas conocidas.}%
+    }%
+  }%
+}
+\makeatother

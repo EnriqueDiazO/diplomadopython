@@ -1,6 +1,6 @@
 $pdf_mode = 1;
 $interaction = 'nonstopmode';
 $halt_on_error = 1;
-$bibtex_use = 0;         # sin biber por simplicidad
+$bibtex_use = 2;         # sin biber por simplicidad
 $aux_dir = 'latex.out';
 $out_dir = 'latex.out';
