@@ -1,0 +1,41 @@
+\documentclass[12pt]{book}
+
+% Paquetes comunes
+\input{../../../common/preamble}
+
+% Rutas de figuras de este módulo
+\graphicspath{{figures/}}
+
+\title{Libro de Ejemplo — Módulo 1}
+\author{Autor del Diplomado}
+\date{\today}
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{Introducción}
+Este es un \textbf{monorepo} de ejemplo con un libro y un formato tipo Cornell.
+Compila con \texttt{latexmk} y genera artefactos en \texttt{latex.out/}.
+
+\section{Figura de ejemplo}
+La Figura~\ref{fig:plot} se incluye desde \texttt{figures/ejemplo\_plot.png}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{ejemplo_plot.png}
+    \caption{Gráfica de ejemplo generada automáticamente.}
+    \label{fig:plot}
+\end{figure}
+
+\chapter{Contenido separado}
+\input{content/titlepage}
+\input{content/dedication}
+\input{content/author}
+
+\backmatter
+\end{document}

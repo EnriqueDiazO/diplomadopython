@@ -1,0 +1,29 @@
+% modules/modulo01/cornell/cornell.sty — Macros simples para maquetar Cornell
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cornell}[2025/08/14 Simple Cornell layout]
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{parskip}
+
+\newlength{\CueWidth}
+\setlength{\CueWidth}{0.28\textwidth}
+
+% Comandos sencillos para construir una página tipo Cornell
+\newcommand{\cornellcues}[1]{%
+  \begin{minipage}[t]{\CueWidth}
+  \textbf{Señales}\\[0.5em]
+  #1
+  \end{minipage}
+}
+\newcommand{\cornellnotes}[1]{%
+  \hfill
+  \begin{minipage}[t]{0.68\textwidth}
+  \textbf{Notas}\\[0.5em]
+  #1
+  \end{minipage}
+}
+\newcommand{\cornellsummary}[1]{%
+  \par\bigskip
+  \textbf{Resumen}\\[0.5em]
+  #1
+}
