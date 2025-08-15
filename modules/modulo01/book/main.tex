@@ -5,45 +5,41 @@
 
 \graphicspath{{figures/}}
 
-\title{Libro de Ejemplo — Módulo 1}
-\author{Autor del Diplomado}
+\title{\textbf{Diplomado en Python y Ciencia de Datos} \\ \large Material Didáctico — Módulo 1}
+\author{Enrique Díaz Ocampo \\ Colegio Universitario Científico de Datos (COCID)}
 \date{\today}
 
+
 \begin{document}
+\thispagestyle{empty}
+\input{content/titlepage}
+\thispagestyle{empty}
 \frontmatter
 \maketitle
 
 \tableofcontents
+\listoffigures
+\listoftables
+\lstlistoflistings
 
 \mainmatter
 
-\chapter{Introducción}
-Este es un \textbf{monorepo} de ejemplo con un libro y un formato tipo Cornell.
-Compila con \texttt{latexmk} y genera artefactos en \texttt{latex.out/}.
+% Introducción
+%\input{content/c0.tex}
 
-\section{Figura de ejemplo}
-La Figura~\ref{fig:plot} se incluye desde \texttt{figures/ejemplo\_plot.png}.
+%\chapter{Contenido separado}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\linewidth]{ejemplo_plot.png}
-    \caption{Gráfica de ejemplo generada automáticamente.}
-    \label{fig:plot}
-\end{figure}
-
-\chapter{Contenido separado}
-\input{content/titlepage}
-\input{content/dedication}
-\input{content/author}
+%\input{content/dedication}
+%\input{content/author}
 
 \input{content/c1.tex}
 
-Según \textcite{mckinney2010}, Pandas es muy útil.
-También \parencite{python_docs} ofrece información oficial.
+%Según \textcite{mckinney2010}, Pandas es muy útil.
+%También \parencite{python_docs} ofrece información oficial.
 
-\begin{definition}
-dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-\end{definition}
+%\begin{definition}
+%dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+%\end{definition}
 
 \printbibliography
 
