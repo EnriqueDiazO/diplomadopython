@@ -25,7 +25,7 @@ refs:
 # ====== Limpieza ======
 # Limpia artefactos de compilación estándar + latex.out
 clean:
-	@find modules -regex ".*\(aux\|bbl\|bcf\|blg\|fdb_latexmk\|fls\|log\|out\|run.xml\|synctex.gz\|toc\|lof\|lot\)" -delete
+	@find modules -regex ".*\(aux\|bbl\|bcf\|blg\|fdb_latexmk\|fls\|log\|out\|run.xml\|synctex.gz\|toc\|lof\|lot\|lol\)" -delete
 	@find modules -type d -name "latex.out" -exec rm -rf {} +
 
 # Limpia también artefactos in-place del módulo (por si usaste 'make refs')

@@ -9,7 +9,19 @@
 \usepackage[utf8]{inputenc}   % Entrada en UTF-8 (acentos directos)
 \usepackage[T1]{fontenc}      % Codificación de salida T1 (mejor separación silábica)
 \usepackage{lmodern}          % Familia Latin Modern (mejor que Computer Modern)
-\usepackage[spanish]{babel} % (OPCIONAL) reglas tipográficas/es de español
+\usepackage[spanish,es-lcroman,es-tabla]{babel}
+\usepackage[toc,page,titletoc]{appendix}
+\addto\captionsspanish{%
+\renewcommand{\contentsname}{Contenido}
+\renewcommand\bibname{Referencias}
+\renewcommand{\chaptername}{} %Para quitar de los encabezados la palabra "capítulo"
+\renewcommand{\listfigurename}{Lista de Figuras}
+\renewcommand{\listtablename}{Lista de Tablas}
+\renewcommand{\tablename}{Tabla}
+\renewcommand\appendixname{Anexos}
+\renewcommand\appendixpagename{Anexos}
+\renewcommand{\appendixtocname}{Anexos}
+}
 
 % ------------------------------
 % Maquetación y gráficos
@@ -18,6 +30,41 @@
 \geometry{margin=2.5cm}       % Margen por defecto del monorepo
 \usepackage{graphicx}         % Inserción de figuras/imágenes
 \usepackage{xcolor}           % Colores (para hipervínculos, cajas, etc.)
+
+
+\usepackage[T1]{fontenc}
+\usepackage{titlesec, blindtext, color}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\large\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\large\bfseries\raggedright}
+\titlespacing{\chapter}{0pt}{0pt}{10pt}[0pt]
+\titleformat*{\section}{\normalsize\bfseries\raggedright}
+\titlespacing*{\section}{0pt}{10pt}{0pt}[0pt]
+\titleformat*{\subsection}{\normalsize\bfseries\raggedright}
+\titlespacing*{\subsection}{0pt}{10pt}{0pt}[0pt]
+\titleformat*{\subsubsection}{\normalsize\bfseries\raggedright}
+\titlespacing*{\subsubsection}{0pt}{10pt}{0pt}[0pt]
+
+\usepackage{fancyhdr}
+\usepackage{fancyref}
+\usepackage{etoolbox}
+
+
+\fancypagestyle{fi-page}{
+  \fancyhf{}  % limpia encabezado y pie
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+
+  % Eliminar contenido del encabezado generado automáticamente
+  \renewcommand{\chaptermark}[1]{}  % anula \leftmark
+  \renewcommand{\sectionmark}[1]{}  % anula \rightmark
+
+  \newcommand{\changefont}{\fontsize{9}{11}\selectfont}
+
+  \fancyfoot[C]{\changefont \thepage} % solo número de página centrado
+}
+
+
 
 % ------------------------------
 % Hipervínculos
@@ -35,7 +82,7 @@
 % ------------------------------
 \usepackage{parskip}          % Párrafos sin sangría + espacio vertical
 \usepackage{amsmath, amssymb} % Entornos y símbolos matemáticos
-\renewcommand{\tablename}{Tabla}
+
 % ------------------------------
 % URLs largas y microtipografía (mejora de corte de línea)
 % ------------------------------

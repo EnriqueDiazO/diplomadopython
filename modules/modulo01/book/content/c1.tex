@@ -1,4 +1,6 @@
+\pagestyle{fi-page}
 \chapter{Introducción}
+
 Python es un lenguaje de programación de alto nivel, interpretado y de propósito general, conocido por su sintaxis legible y concisa.
 Fue creado a finales de los años 80 por Guido van Rossum en el centro de investigación CWI (Países Bajos) como sucesor del 
 \href{https://docs.python.org/3/license.html}{lenguaje ABC}. 
@@ -116,23 +118,703 @@ o gráficos), junto con descripciones, fórmulas matemáticas y anotaciones.
 Esto es ideal para análisis de datos, experimentos científicos, o demostraciones educativas, ya que documenta el proceso junto con el código. 
 Para usar Jupyter, se puede instalar el paquete jupyter (o JupyterLab, una versión más reciente) con pip, y luego lanzar el servidor con jupyter 
 notebook o jupyter lab, que abrirá una interfaz web local. Dentro de VS Code también existe integración para notebooks: la extensión de Python permite 
-abrir archivos .ipynb con una interfaz interactiva muy similar a Jupyter, ejecutando celdas de código y mostrando sus salidas, todo dentro del editor
+abrir archivos .ipynb con una interfaz interactiva muy similar a Jupyter, ejecutando celdas de código y mostrando sus salidas, todo dentro del \href{https://code.visualstudio.com/docs/datascience/jupyter-notebooks#:~:text=Jupyter%20Notebooks%20in%20VS%20Code,on%20one%20canvas%20called}{editor}.
 
-En este diplomado de ciencia de datos, es común que los ejercicios y ejemplos se realicen en notebooks, por la comodidad de ir alternando explicación 
-y ejecución de código.
+\section{Gestión de Paquetes con \textit{pip}}
+
+Una de las grandes fortalezas de Python es su vasto ecosistema de paquetes y 
+librerías disponibles para extender sus funcionalidades. La mayoría de estos 
+paquetes externos se distribuyen a través del 
+\\
+\href{https://pypi.org/}{Python Package Index (PyPI)},
+\\
+
+un repositorio público en línea que alberga decenas de miles de proyectos Python 
+de terceros. Para instalar y administrar estos paquetes, Python proporciona 
+la herramienta de línea de comandos pip (abreviatura recursiva de 
+pip installs packages). Desde 2014, pip viene incluido por defecto con las 
+instalaciones oficiales de Python, 
+facilitando enormemente la instalación de dependencias.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+El uso básico de \textit{pip} es muy sencillo. Por ejemplo, para instalar el paquete 
+\textit{NumPy} (una librería para cálculo numérico muy utilizada en ciencia de datos), 
+se ejecuta en terminal:
+
+\begin{lstlisting}[language=bash, caption={Instalación con pip}]
+pip install numpy
+\end{lstlisting}
+
+Esto descargará la última versión publicada de NumPy desde PyPI y la instalará 
+en el entorno de Python actual. Pip se encarga de resolver y descargar también 
+las dependencias necesarias de cada paquete. Bajo el capó, pip utiliza archivos 
+denominados \href{https://pip.pypa.io/en/stable/cli/pip_wheel/}{wheel o sdist} 
+que contienen el código del paquete; siempre que exista
+una wheel (paquete precompilado) compatible con nuestra plataforma, 
+pip la preferirá para acelerar la instalación.
+
+Es importante destacar que en sistemas donde pueda haber múltiples versiones 
+de Python instaladas (por ejemplo, Python 2.7 y Python 3.x), conviene usar 
+el comando específico de la versión:
+
+\begin{lstlisting}[language=bash, caption={Uso explícito de la versión de Python}]
+python3 -m pip install paquete
+\end{lstlisting}
+
+En Windows, se puede usar:
+
+\begin{lstlisting}[language=bash, caption={Uso del lanzador en Windows}]
+py -m pip install paquete
+\end{lstlisting}
+
+Pip también permite especificar 
+\href{https://packaging.python.org/en/latest/tutorials/installing-packages/}{versiones concretas}:
+
+\begin{lstlisting}[language=bash, caption={Instalación de una versión específica}]
+pip install Django==3.2
+\end{lstlisting}
+
+y rangos de versiones:
+
+\begin{lstlisting}[language=bash, caption={Instalación con rango de versiones}]
+pip install "Django>=3.2,<4.0"
+\end{lstlisting}
+
+Además de la instalación de paquetes individuales, pip puede manejar archivos de 
+requisitos (usualmente llamados \textit{requirements.txt}) que listan varias 
+dependencias con sus versiones:
+
+\begin{lstlisting}[language=bash, caption={Instalación desde requirements.txt}]
+pip install -r requirements.txt
+\end{lstlisting}
+
+También es posible actualizar paquetes:
+
+\begin{lstlisting}[language=bash, caption={Actualización de un paquete}]
+pip install --upgrade paquete
+\end{lstlisting}
+
+y desinstalarlos:
+
+\begin{lstlisting}[language=bash, caption={Desinstalación de un paquete}]
+pip uninstall paquete
+\end{lstlisting}
+
+Toda esta funcionalidad hace de \textit{pip} la herramienta estándar para gestión de 
+paquetes en el flujo de trabajo con Python. 
+
+\textit{pip} es al desarrollador Python lo que un gestor de paquetes es a una 
+distribución Linux: una herramienta esencial. Con un simple comando se 
+pueden agregar al proyecto funcionalidades sofisticadas desarrolladas por 
+la comunidad. Por este motivo, uno de los primeros pasos tras instalar Python 
+suele ser actualizar pip:
+
+\begin{lstlisting}[language=bash, caption={Actualización de pip}]
+pip install --upgrade pip
+\end{lstlisting}
+
+para asegurarse de tener la última versión, y luego instalar las librerías requeridas 
+para el trabajo en cuestión (por ejemplo, en ciencia de datos, paquetes como NumPy, pandas, 
+Matplotlib, scikit-learn, etc., todos disponibles vía pip en PyPI).
 
 
-Por lo tanto, el proceso típico de preparación del entorno de Python incluirá: instalar Python 3 desde la fuente adecuada; opcionalmente instalar un entorno de desarrollo (como VS Code con la extensión de Python); y familiarizarse con el uso de notebooks de Jupyter si se trabajará en análisis interactivo. Con estas herramientas configuradas, estaremos listos para escribir y ejecutar programas Python eficientemente.
-\begin{table}[ht]
-    \centering
-    \begin{tabular}{|c|c|}
-        \hline
-        Column A & Column B \\
-        \hline
-        1 & 2 \\
-        3 & 4 \\
-        \hline
-    \end{tabular}
-    \caption{This is an example table.}
-    \label{tab:example}
-\end{table}
+pip es al desarrollador Python lo que un gestor de paquetes es a una distribución Linux: una herramienta esencial. 
+Con un simple comando se pueden agregar al proyecto funcionalidades sofisticadas desarrolladas por la comunidad. 
+Por este motivo, uno de los primeros pasos tras instalar Python suele ser actualizar pip (pip install --upgrade pip)
+ para asegurarse de tener la última versión, y luego instalar las librerías requeridas para el trabajo en cuestión 
+ (por ejemplo, en ciencia de datos, paquetes como NumPy, pandas, Matplotlib, scikit-learn, etc., todos disponibles vía pip en PyPI).
+
+\section{Entornos Virtuales}
+En entornos profesionales o proyectos complejos, es común usar entornos virtuales para aislar las dependencias 
+de cada proyecto. Python ofrece el módulo venv para crear entornos virtuales (carpetas con una instalación “ligera” 
+de Python donde pip instalará los paquetes localmente, sin afectar al sistema global). Combinado con pip, esto permite 
+tener diferentes versiones de librerías en distintos proyectos sin conflictos. 
+Herramientas más avanzadas como Pipenv o Poetry construyen sobre pip para proporcionar un manejo integral de dependencias 
+y entornos, pero internamente siguen usando pip para las instalaciones concretas.
+
+\section{Sintaxis y Estructura Básica del Lenguaje}
+
+Python se caracteriza por una sintaxis limpia que busca ser cercana al pseudocódigo. 
+A diferencia de muchos lenguajes, Python usa la 
+\href{https://python-course.eu/python-tutorial/structuring-indentation.php}{indentación (espacios en blanco al inicio de la línea)} 
+para delimitar bloques de código, en lugar de llaves u palabras clave explícitas. 
+
+Una construcción típica que ilustra la indentación es la siguiente:
+
+\begin{lstlisting}[language=Python, caption={Estructura de if en Python.}]
+if condicion:
+    # inicio de bloque if
+    instruccion_1
+    instruccion_2
+    # fin de bloque if (cuando volvemos a indentar al nivel anterior)
+print("continuacion del programa")
+\end{lstlisting}
+
+En este ejemplo, las \textit{instruccion\_1} e \textit{instruccion\_2} se ejecutarán solo si 
+\textit{condicion} es verdadera, por estar indentadas bajo el \textit{if}. 
+Al volver la indentación a la columna inicial, Python entiende que el bloque del \textit{if} terminó. 
+Esto evita la necesidad de escribir delimitadores como \textit{fi} o \textit{end}: 
+el propio formato del código define los bloques.
+
+\begin{lstlisting}[language=Python, caption={Expresión multilínea en Python.}]
+total = (precio_bruto 
+         + impuestos 
+         - descuento)
+print("continuacion del programa")
+\end{lstlisting}
+
+Los comentarios en Python comienzan con el carácter \# y se extienden hasta el final de la línea. 
+Cualquier texto a la derecha de un \# es ignorado por el intérprete, lo cual es útil para agregar 
+\href{https://docs.python.org/3/tutorial/introduction.html\#using-python-as-a-calculator}{anotaciones o desactivar código temporalmente}. 
+Python no posee una sintaxis especial para comentarios multilínea; en su lugar, se suelen utilizar 
+comentarios en cada línea o, para documentación extensa, \textit{docstrings} (cadenas de documentación). 
+Un \textit{docstring} es un literal de cadena (entre \textit{"""triple comillas"""} por convención)
+que aparece al inicio de un módulo, función o clase, y sirve para describir su propósito.
+Estas docstrings son accesibles en tiempo de ejecución vía la propiedad \_\_doc\_\_ o con la función
+de ayuda help(), por lo que constituyen la forma estándar de documentar programas Python.
+
+Otro aspecto fundamental de la sintaxis Python es que es \textbf{case-sensitive}: distingue entre 
+mayúsculas y minúsculas. Por ejemplo, Variable y variable son nombres distintos. Las palabras clave 
+del lenguaje (como \textit{def, if, else, for}, etc.) están en minúsculas y no pueden usarse como 
+identificadores. Para nombrar variables, funciones y demás identificadores, \href{https://peps.python.org/pep-0008/#:~:text=Function%20names%20should%20be%20lowercase%2C,as%20necessary%20to%20improve%20readability}{\textit{PEP 8}} 
+recomienda usar solo letras minúsculas, números y guiones bajos (evitando espacios, acentos 
+u otros caracteres especiales). Por ejemplo, un nombre válido podría ser datos\_cliente\_1 pero no 
+datos-cliente (el guion medio no es permitido en identificadores). Asimismo, por convención no 
+se utilizan caracteres Unicode en nombres de variables, aun cuando Python técnicamente los acepte, 
+para asegurar máxima compatibilidad y claridad.
+
+La sintaxis de Python busca que el código “se lea como un inglés estructurado”. El uso de indentación 
+obligatoria y una gramática minimalista (sin adornos sintácticos innecesarios) son un contraste 
+con otros lenguajes, pero aportan una claridad notable. Esto, junto con las directrices de estilo 
+(PEP 8) ampliamente adoptadas, hace que diferentes programadores Python tiendan a producir 
+código con una estética y estructura consistentes, facilitando la colaboración y el mantenimiento.
+
+
+\section{Variables y Tipos de Datos}
+Python es un lenguaje de tipado dinámico y fuertemente tipado. \href{https://typing.python.org/en/latest/spec/concepts.html}{Tipado dinámico} 
+significa que las variables no tienen un tipo fijo declarado; en tiempo de ejecución, 
+una variable puede referirse a un objeto de cualquier tipo, y ese tipo puede cambiar 
+a lo largo del programa simplemente asignándole un nuevo valor de otro tipo. 
+La comprobación de tipos se realiza en el momento de usar los valores (por ejemplo, antes de aplicar una operación a un objeto, 
+Python verifica en ese instante si la operación es válida para ese tipo). Por otro lado, Python
+es fuertemente tipado: no realiza conversiones automáticas implícitas 
+entre tipos que puedan llevar a errores sutiles (por ejemplo, no sumará una cadena y un número 
+a menos que se convierta explícitamente uno de ellos). Esta combinación –dinámico pero fuerte– 
+proporciona flexibilidad sin sacrificar la seguridad en la manipulación de tipos.
+Para crear una variable en Python basta con asignarle un valor por primera vez. Por ejemplo:
+\begin{lstlisting}[language=Python, caption={Declaración de variables en Python.}]
+x = 10
+mensaje = "Hola"
+\end{lstlisting}
+
+Aquí x se crea como una referencia a un objeto de valor entero 10, mientras mensaje apunta 
+a una cadena de texto. No se necesita declarar el tipo de x o mensaje previamente. 
+Internamente, Python manejará x como un objeto de tipo entero (int) y mensaje como un 
+objeto de tipo cadena (\textit{str}). Es importante entender que en Python las variables son más 
+bien etiquetas que referencian objetos en memoria; la asignación no copia contenido binario 
+como en lenguajes de bajo nivel, sino que liga un nombre al objeto creado. Dos variables 
+pueden referirse al mismo objeto (por ejemplo, después de y = x, tanto x como y apuntan al 
+entero 10 existente). Los objetos en Python llevan consigo información de su tipo, 
+accesible mediante \textit{type}(objeto).
+
+Tipos de datos básicos. Python ofrece una variedad de \href{https://docs.python.org/3/library/stdtypes.html}{tipos de datos incorporados}, 
+tanto para valores numéricos como estructuras de datos compuestas. Entre los principales 
+tipos primitivos podemos destacar.
+
+\begin{itemize}
+\item Enteros (int): números enteros de precisión arbitraria. No hay límite práctico para el tamaño de un entero más allá de la memoria disponible (Python automáticamente maneja grandes magnitudes con la misma clase int). En Python 2 existían dos tipos separados (int de 32 bits y long arbitrario), pero en Python 3 se unificaron en un solo tipo int de precisión ilimitada.
+\item Números de punto flotante (float): representan números con parte decimal, típicamente con doble precisión (64 bits, equivalente al tipo double en C). Se basan en el estándar IEEE 754. Un float tiene alrededor de 15-17 dígitos decimales de precisión y un rango de ~1e-308 a 1e308 (valores más allá de esto resultan en inf).
+\item Números complejos (complex): Python soporta números complejos de forma nativa, con la forma \textit{a+bj} donde \textit{j} indica la unidad imaginaria $\sqrt{-1}$. Por ejemplo, 3+5j es un número complejo con parte real 3 e imaginaria 5. Este tipo es útil en matemáticas e ingeniería; las operaciones aritméticas habituales están definidas para complejos.
+\item Booleanos (bool): es un subtipo de entero que solo toma dos valores: True o False. En realidad True y False se comportan como 1 y 0 (respectivamente) en contextos aritméticos, dado que bool hereda de int, pero semánticamente se usan para lógica booleana. Los booleanos suelen ser el resultado de comparaciones (por ejemplo, 5 > 3 produce True).
+\item Cadena de caracteres (str): tipo para datos textuales. Una cadena en Python es una secuencia inmutable de caracteres Unicode (UTF-8 por defecto). Se pueden delimitar con comillas simples ('texto') o dobles ("texto"), siendo equivalentes. Las cadenas soportan muchas operaciones: concatenación con +, repetición con *, acceso a caracteres mediante índices, segmentación (slicing), 
+métodos para búsqueda, reemplazo, cambio de mayúsculas/minúsculas, etc. Dado que Python 3 usa Unicode, las cadenas pueden contener caracteres de muchos alfabetos y emojis sin problemas. Por ejemplo: nombre = "José" es válido.
+\item Valores nulos: Python tiene un singleton especial None que representa la ausencia de valor. None es del tipo NoneType y se utiliza donde en otros lenguajes se emplearía null o nil. Es común usar None para inicializar variables que luego recibirán un objeto, o para indicar retornos vacíos de funciones.
+
+\end{itemize}
+
+Además de estos, Python cuenta con tipos de secuencia y colección integrados de alto nivel (que discutiremos en la siguiente sección) como listas, tuplas, conjuntos y diccionarios, que permiten agrupar múltiples valores. Todos estos tipos son objetos de primera clase en Python – por ejemplo, las funciones mismas son objetos (de tipo function), las clases también (type), etc. Esto refleja la naturaleza fuertemente orientada a objetos del lenguaje: prácticamente todo en Python es un objeto, incluyendo los tipos básicos.
+Un detalle a notar es cómo Python evalúa el verdadero o falso de objetos cuando se utilizan en contextos booleanos (por ejemplo, en un if o while). Existe una noción de “truthiness”: varios tipos de objetos pueden ser interpretados como False o True sin ser estrictamente booleanos. Por convención, se consideran falsos: el valor None, el valor booleano False, cualquier número numéricamente cero (0, 0.0, 0j, Decimal(0), Fraction(0,1), etc.), las secuencias o colecciones vacías ("" cadena vacía, [] lista vacía, {} diccionario vacío, set() conjunto vacío, etc.). Cualquier otro valor se interpreta como True. Esta característica permite constructos como:
+
+\begin{lstlisting}[language=Python, caption={Ejemplos de constructos en Python.}]
+if lista: 
+    print("La lista tiene elementos")
+\end{lstlisting}
+
+que imprime el mensaje solo si lista no está vacía (porque una lista vacía se considera \textit{False}) esta es una forma idiomática en Python de verificar contenido no vacío. 
+Python proporciona un sistema de tipos rico y flexible, donde el desarrollador no tiene que anotar tipos, pero sí debe comprender los comportamientos de cada tipo. 
+La inferencia dinámica de tipos hace al código más conciso, aunque es responsabilidad del programador (o de herramientas de análisis estático tipo mypy) asegurar 
+que las operaciones realizadas sean válidas para los tipos esperados en cada momento. La combinación de tipado dinámico con una biblioteca estándar poderosa da mucha 
+rapidez para prototipar, pero siempre conviene escribir pruebas o manejar excepciones para los casos donde tipos inesperados puedan aparecer en tiempo de ejecución.
+
+\section{Operaciones Matemáticas Básicas}
+
+Python soporta de forma nativa las 
+\href{https://docs.python.org/3/tutorial/introduction.html\#using-python-as-a-calculator}{operaciones aritméticas y algebraicas fundamentales}, 
+utilizando una sintaxis natural. En el intérprete interactivo, se puede usar Python como una calculadora simplemente escribiendo expresiones matemáticas, 
+ya que los operadores \textit{+}, \textit{-}, \textit{*} y \textit{/} funcionan como suma, resta, multiplicación y división, respectivamente. 
+Por ejemplo, al ingresar \textit{2 + 2}, Python devolverá \textit{4}. 
+Los paréntesis \textit{()} pueden emplearse para agrupar subexpresiones y alterar la precedencia usual de los operadores, 
+tal como en matemáticas convencionales. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+La precedencia por defecto sigue reglas estándar: la multiplicación y división se evalúan antes que la suma y resta, 
+y todos ellos antes que comparaciones y operaciones lógicas, a menos que se usen paréntesis para forzar un orden diferente.
+
+\begin{lstlisting}[language=Python, caption={Operaciones en Python.}]
+>>> 50 - 5*6
+20
+>>> (50 - 5*6) / 4
+5.0
+>>> 8 / 5
+1.6
+>>> 17 // 3      # Division entera
+5
+>>> 17 % 3       # Modulo (residuo de la division)
+2
+\end{lstlisting}
+
+En el primer cálculo, Python realiza $50 - (5*6) = 20$. En el segundo, los paréntesis hacen que primero se compute 
+$50 - 30 = 20$ y luego ese resultado se divida por 4, produciendo \textit{5.0}. 
+Observamos que la división entre enteros mediante \textit{/} produce un número de coma flotante (incluso si la división es exacta, 
+el resultado será de tipo \textit{float}). Por eso \textit{8 / 5} da \textit{1.6} y no un entero. 
+
+Como se mencionó, esto es un cambio respecto a Python 2, donde \textit{8 / 5} (con ambos operandos enteros) daba \textit{1} truncado. 
+En Python 3 la división “clásica” siempre retorna el resultado en punto flotante. 
+Cuando se desea la división entera truncada (o división *floor*), se emplea el operador \textit{//}. 
+
+En este caso, \textit{17 // 3} devuelve \textit{5} descartando la parte fraccionaria de $5.666...$, 
+y \textit{17 \% 3} da el resto de dividir 17 entre 3, que es \textit{2}. 
+Python garantiza que se cumpla la identidad:
+
+\[
+a = (a // b) * b + (a \% b)
+\]
+
+para enteros $a$ y $b$ (con la salvedad de que si $a$ o $b$ son negativos, la división entera se redondea hacia menos infinito, 
+no hacia cero; es decir, \textit{//} es una *floor division* exacta).
+
+Otro operador útil es la exponenciación. Python utiliza \textit{**} para representar potencias. 
+Por ejemplo, \textit{2 ** 7} produce $128$ (es decir, $2^7$). 
+Este operador también funciona con flotantes (dando resultados en coma flotante o números complejos si el exponente es no entero o negativo). 
+
+La prioridad de \textit{**} es mayor que la de los operadores aritméticos básicos, 
+por lo que \textit{2 * 3 ** 2} es $18$ (porque primero calcula $3 ** 2 = 9$ y luego $2 * 9$). 
+Si se desea cambiar el orden, habría que usar paréntesis: \textit{(2 * 3) ** 2} calcula primero $2 * 3 = 6$ y luego $6^{2} = 36$.
+
+Python también proporciona operadores unarios \textit{+} y \textit{-} para indicar respectivamente el valor positivo o negativo de un número 
+(por ejemplo, \textit{-5} es un número entero negativo, y \textit{+5} es simplemente \textit{5}). 
+No se debe confundir el operador unario menos con la resta binaria: en una expresión como $a - -b$, 
+el segundo \textit{-} es un operador unario que aplica a $b$ (dando su negación), resultando efectivamente en $a + b$.
+
+Python permite múltiples asignaciones en una sola línea, lo cual es útil para intercambiar valores o inicializar varios variables a la vez:
+
+\begin{lstlisting}[language=Python, caption={Asignación múltiple en Python.}]
+x, y, z = 1, 2, 3   # asignacion multiple
+x, y = y, x         # intercambia los valores de x e y
+\end{lstlisting}
+
+Esta característica aprovecha que en Python la coma crea tuplas; 
+a la izquierda del signo \textit{=} tenemos una tupla de variables, 
+y a la derecha una tupla de expresiones, correspondiéndose elemento a elemento.
+
+Cabe señalar que si intentamos usar una variable no asignada previamente, 
+Python lanzará un error \textit{NameError} indicando que el nombre no está definido 
+(\href{https://docs.python.org/3/reference/executionmodel.html}{documentación oficial}). 
+No existe inicialización implícita de variables al estilo de algunos lenguajes; 
+por ejemplo, las variables locales no tienen un valor por defecto y no pueden usarse sin asignar.
+
+\subsection*{Conversión de tipos}
+Dado el tipado fuerte, Python no mezclará tipos incompatibles automáticamente. 
+Por ejemplo, \textit{5 + "7"} provocará un \textit{TypeError}, puesto que no tiene sentido 
+sumar un entero y una cadena directamente. 
+Es responsabilidad del programador convertir explícitamente los valores cuando se requiera. 
+Python proporciona funciones de conversión integradas: \textit{int()}, \textit{float()}, \textit{str()}, etc. 
+Así, \textit{int("7")} devuelve el entero \textit{7}, y \textit{str(5)} devuelve la cadena \textit{"5"}. 
+De igual manera, \textit{float("3.1415")} produce \textit{3.1415} como número flotante. 
+Si la conversión no es posible (por ejemplo, \textit{int("hola")}), se lanzará una excepción \textit{ValueError}. 
+
+En operaciones aritméticas mixtas entre enteros y flotantes, 
+Python automáticamente convierte el entero a \textit{float} para evitar pérdida de información 
+(\href{https://docs.python.org/3/library/functions.html}{documentación oficial}). 
+Por ejemplo, la expresión:
+
+\[
+4 * 3.75 - 1
+\]
+
+dará como resultado \textit{14.0}, porque el entero \textit{4} se promueve a \textit{4.0}, 
+luego se calcula $4.0 * 3.75 = 15.0$, y finalmente $15.0 - 1 = 14.0$.
+
+\subsection*{Módulo \textit{math}}
+Aunque los operadores básicos cubren las cuatro operaciones fundamentales y la exponenciación, 
+Python ofrece en su librería estándar el módulo \textit{math}, que incluye funciones matemáticas más avanzadas: 
+trigonometría (\textit{sin}, \textit{cos}, \textit{tan}), logaritmos (\textit{log}, \textit{log10}), 
+exponenciales (\textit{exp}), radicación (\textit{sqrt}), factorial (\textit{factorial}), entre otras, 
+así como las constantes $\pi$ (\textit{math.pi}) y $e$ (\textit{math.e}). 
+Para usar este módulo es necesario importarlo mediante \textit{import math}. 
+
+De forma similar, el módulo \textit{random} permite generar números aleatorios 
+(pseudorrandom) con diversas distribuciones, y los módulos \textit{decimal} y \textit{fractions} 
+proporcionan tipos numéricos especiales (coma flotante decimal con precisión arbitraria o números racionales exactos, respectivamente) 
+cuando se requieren cálculos con requisitos particulares de precisión o exactitud racional.
+
+\section{Comprensiones de Listas y Generadores}
+
+Una de las características más “pitónicas” y celebradas de Python son las 
+\textit{comprensiones de listas} (\textit{list comprehensions}), que ofrecen una sintaxis concisa 
+para crear nuevas listas a partir de secuencias existentes de una manera declarativa y legible. 
+La idea es poder filtrar y transformar elementos de una secuencia en una sola expresión compacta, 
+en lugar de tener que escribir bucles explícitos.
+
+En términos generales, una comprensión de lista consiste en una expresión seguida 
+de una o más cláusulas \textit{for} y/o \textit{if}, encerrada en corchetes. 
+
+Por ejemplo:
+
+\begin{lstlisting}[language=Python, caption={Comprensión de lista para calcular cuadrados.}]
+cuadrados = [x**2 for x in range(10)]
+print(cuadrados)
+# Resultado: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+\end{lstlisting}
+
+El ejemplo anterior crea una lista con los cuadrados de los números del 0 al 9. 
+Su equivalente con un bucle explícito sería:
+
+\begin{lstlisting}[language=Python, caption={Construcción de la lista con un bucle for.}]
+cuadrados = []
+for x in range(10):
+    cuadrados.append(x**2)
+\end{lstlisting}
+
+Además, las comprensiones permiten filtrar los elementos aplicando condiciones. 
+Por ejemplo, si queremos obtener solo los cuadrados de los números impares:
+
+\begin{lstlisting}[language=Python, caption={Comprensión de lista con condición.}]
+cuadrados_impares = [x**2 for x in range(10) if x % 2 == 1]
+print(cuadrados_impares)
+# Resultado: [1, 9, 25, 49, 81]
+\end{lstlisting}
+
+Asimismo, es posible anidar bucles dentro de una misma comprensión, lo cual permite 
+generar combinaciones de elementos de manera concisa:
+
+\begin{lstlisting}[language=Python, caption={Comprensión con bucles anidados.}]
+pares = [(x, y) for x in [1, 2, 3] for y in [3, 1, 4] if x != y]
+print(pares)
+# Resultado: [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
+\end{lstlisting}
+
+Además de listas, Python permite construir comprensiones para 
+\textit{conjuntos} y \textit{diccionarios}. Por ejemplo:
+
+\begin{lstlisting}[language=Python, caption={Comprensión de conjuntos y diccionarios.}]
+# Conjunto de cuadrados
+cuadrados_set = {x**2 for x in range(5)}
+
+# Diccionario: numero -> cuadrado
+cuadrados_dict = {x: x**2 for x in range(5)}
+\end{lstlisting}
+
+Finalmente, existe un mecanismo relacionado: las 
+\textit{expresiones generadoras} (\textit{generator expressions}). 
+Son similares a las comprensiones de lista pero, en lugar de construir toda la lista en memoria, 
+generan los elementos de manera perezosa (\textit{lazy evaluation}) usando paréntesis en lugar de corchetes:
+
+\begin{lstlisting}[language=Python, caption={Expresión generadora en Python.}]
+gen = (x**2 for x in range(10))
+print(next(gen))  # 0
+print(next(gen))  # 1
+\end{lstlisting}
+
+Este enfoque es muy útil para trabajar con grandes volúmenes de datos o secuencias infinitas, 
+pues evita cargar todo el resultado en memoria.
+
+\section{Estructuras de Datos Integradas: Listas, Tuplas, Diccionarios, Conjuntos, Listas Enlazadas, \textit{Heaps} y \textit{Arrays}}
+
+Python ofrece varias estructuras de datos incorporadas (\textit{built-in}) que permiten 
+almacenar colecciones de elementos de distintas maneras, cada una con sus características 
+y utilidades particulares. A continuación se describen las principales colecciones 
+integradas y otras estructuras disponibles en la biblioteca estándar:
+
+\subsection*{Listas (\textit{list})}
+Son secuencias ordenadas y mutables de elementos. Se definen usando corchetes, por ejemplo:  
+\textit{mi\_lista = [10, "hola", 3.5]} es una lista con un entero, una cadena y un flotante.  
+Las listas en Python funcionan como arreglos dinámicos: pueden crecer o encoger según se les 
+agreguen o eliminen elementos, y admiten acceso por índice (basado en 0).  
+\textit{mi\_lista[0]} es 10 en el ejemplo.  
+
+Soportan \textit{slicing}, por ejemplo \textit{mi\_lista[1:]} daría \textit{["hola", 3.5]}.  
+Las listas son mutables: podemos hacer \textit{mi\_lista[1] = "mundo"} para modificar el segundo elemento, 
+o usar métodos como \textit{append(x)}, \textit{extend([...])}, \textit{insert(i, x)}, \textit{pop(i)}, 
+\textit{remove(x)}, etc.  
+
+Internamente, una lista está implementada como un bloque contiguo de referencias a objetos, 
+lo que hace que el acceso indexado sea muy eficiente (tiempo constante amortizado, $O(1)$), 
+así como añadir al final. Sin embargo, inserciones o eliminaciones en el inicio o en el medio 
+de la lista pueden ser costosas $O(n)$ porque hay que desplazar elementos.  
+
+\subsection*{Tuplas (\textit{tuple})}
+Son secuencias ordenadas inmutables. Se definen con paréntesis o separando elementos con comas.  
+Ejemplo: \textit{punto = (3, 5)}. Una tupla, una vez creada, no permite agregar, quitar ni 
+cambiar elementos.  
+
+Al ser inmutables, son \textit{hashables}, lo que significa que pueden usarse como claves en diccionarios 
+o como elementos de conjuntos. Por ejemplo: \textit{datos[(3,5)] = "ubicación"}.  
+
+Las tuplas también pueden ser más eficientes en memoria y velocidad que las listas, 
+pero la elección suele depender de la semántica: usar tupla para registros fijos y lista para colecciones variables.  
+
+\subsection*{Arreglos (\textit{arryas})}
+
+Array (arreglo tipo C): Python provee el módulo array en la librería estándar para casos donde se necesite un arreglo compacto de valores primitivos (por ejemplo, millones de números de 1 byte) y se quiera evitar la sobrecarga de objetos int independientes. array.array crea secuencias mutables cuyos elementos son todos del mismo tipo (entero con cierto número de bits, float de 32 bits, etc.) y se almacenan en un buffer contiguo de bytes, similar a como lo haría un lenguaje de bajo nivel. Por ejemplo:
+
+\begin{lstlisting}[language=Python, caption={Definición de Arreglo tipo C en Python.}]
+import array
+a = array.array('i', [1, 2, 3, 4])
+\end{lstlisting}
+
+crea un array de enteros de 32 bits ('i' indica el tipo C int) con esos valores. Las operaciones soportadas son similares a las de listas (acceso por índice, slicing, append, pop, etc.), pero ocupando menos memoria y (en operaciones numéricas intensivas) potencialmente más eficientes. Sin embargo, en la práctica actual, para manipular grandes conjuntos de datos numéricos es más común usar la biblioteca externa NumPy, que ofrece arrays N-dimensionales de tipos numéricos con operaciones vectorizadas muy optimizadas en C. En un contexto de diplomado de ciencia de datos, seguramente se introducirá NumPy más adelante; por ahora, es suficiente saber que Python nativamente maneja bien listas para la mayoría de propósitos generales, y que existen opciones especializadas como array.array o numpy.ndarray cuando se requiere un manejo más cercano al hardware o computacionalmente denso.
+
+\subsection*{Diccionarios (\textit{dict})}
+Son mapeos que asocian claves con valores, también conocidos como arreglos asociativos o tablas hash.  
+Se definen con llaves \textit{\{clave:valor\}}, por ejemplo: \textit{tel = \{"Juan": 1234, "Ana": 5678\}}.  
+
+Las claves deben ser inmutables y \textit{hashables} (strings, enteros, tuplas, etc.), 
+y los valores pueden ser de cualquier tipo.  
+Los diccionarios permiten búsqueda, inserción y eliminación en tiempo $O(1)$ promedio, gracias al hashing.  
+
+En Python 3.7+ los diccionarios mantienen el orden de inserción de claves. 
+Algunos métodos útiles incluyen: \textit{.get()}, \textit{.keys()}, \textit{.values()}, \textit{.items()}, 
+\textit{.pop()}, así como comprensiones de diccionarios.  
+
+\subsection*{Conjuntos (\textit{set} y \textit{frozenset})}
+Son colecciones desordenadas de elementos únicos. Se definen con llaves, por ejemplo:  
+\textit{frutas = \{"manzana", "banana", "naranja"\}}.  
+
+Los conjuntos permiten operaciones de teoría de conjuntos: unión (\textit{a | b}), 
+intersección (\textit{a \& b}), diferencia (\textit{a - b}), y diferencia simétrica (\textit{a \^ b}).  
+\textit{frozenset} es una variante inmutable y hashable.  
+
+\subsection*{Listas Enlazadas y Deques}
+Aunque las listas cubren muchos usos, no son eficientes para inserciones o eliminaciones al inicio.  
+Para ello, Python ofrece la clase \textit{deque} en el módulo \textit{collections} 
+(\textit{double-ended queue}).  
+
+Un \textit{deque} permite añadir y quitar elementos por ambos extremos en tiempo $O(1)$:  
+\textit{append(x)}, \textit{appendleft(x)}, \textit{pop()}, \textit{popleft()}.  
+Internamente está implementado como una lista doblemente enlazada de bloques.  
+
+El acceso por índice en un \textit{deque} es $O(n)$, por lo que se recomienda usarlo 
+cuando se requiera modelar colas FIFO o pilas LIFO.  
+Ejemplo:  
+\textit{cola = deque(); cola.append("tarea1"); cola.append("tarea2"); cola.popleft()} 
+devuelve \textit{"tarea1"}.  
+
+\section{Bucles y Estructuras Condicionales}
+
+El control de flujo en Python se basa en construcciones familiares como 
+condicionales \textit{if} y bucles \textit{while} y \textit{for}, 
+aunque con algunas diferencias sintácticas en comparación con lenguajes como 
+C, Java o PHP.
+
+\subsection*{Sentencias \textit{if}…\textit{elif}…\textit{else}}
+
+La instrucción condicional fundamental es \textit{if}, que ejecuta un bloque de código 
+solo si una condición booleana es verdadera. La sintaxis general es:
+
+\begin{lstlisting}[language=Python, caption={Estructura condicional en Python.}]
+if condicion1:
+    # bloque de codigo si condicion1 es verdadera
+elif condicion2:
+    # bloque de codigo si condicion2 es verdadera
+else:
+    # bloque de codigo si ninguna condicion previa es verdadera
+\end{lstlisting}
+
+Ejemplo:
+
+\begin{lstlisting}[language=Python, caption={Ejemplo de uso de if-elif-else.}]
+x = 5
+if x < 0:
+    print("Negativo")
+elif x == 0:
+    print("Cero")
+else:
+    print("Positivo")
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Bucles \textit{for}}
+
+En Python, el bucle \textit{for} itera directamente sobre los elementos 
+de una secuencia o iterable (listas, tuplas, cadenas, rangos, etc.):
+
+\begin{lstlisting}[language=Python, caption={Estructura de bucle for.}]
+for variable in secuencia:
+    # bloque de codigo a ejecutar con cada elemento
+\end{lstlisting}
+
+Ejemplo:
+
+\begin{lstlisting}[language=Python, caption={Ejemplo de bucle for.}]
+animales = ["gato", "perro", "loro"]
+for animal in animales:
+    print(animal)
+\end{lstlisting}
+
+\subsection*{Instrucciones \textit{break}, \textit{continue} y cláusula \textit{else}}
+
+Dentro de los bucles, se pueden usar las instrucciones \textit{break} 
+y \textit{continue}:
+
+\begin{itemize}
+  \item \textit{break}: interrumpe el bucle inmediatamente.
+  \item \textit{continue}: salta a la siguiente iteración.
+\end{itemize}
+
+Además, Python permite añadir una cláusula \textit{else} a un bucle:  
+se ejecuta únicamente si el bucle termina de manera “natural” 
+(sin haber sido interrumpido por un \textit{break}).
+
+Ejemplo:
+
+\begin{lstlisting}[language=Python, caption={Uso de break, continue y else en bucles.}]
+for n in range(2, 10):
+    for x in range(2, n):
+        if n % x == 0:
+            print(n, "es divisible por", x)
+            break
+    else:
+        # se ejecuta si el bucle no encontro ningun divisor
+        print(n, 'es primo')
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Bucles \textit{while}} El bucle \textit{while} ejecuta repetidamente un bloque de código mientras la condición indicada sea verdadera: 
+
+\begin{lstlisting}[language=Python, caption={Estructura de bucle while.}] 
+    while condicion: # bloque de codigo a repetir 
+\end{lstlisting} 
+
+%%%%%%%%
+
+Ejemplo: 
+
+\begin{lstlisting}[language=Python, caption={Ejemplo de bucle while.}] 
+    contador = 3 
+    while contador > 0:
+        print(contador) 
+        contador -= 1 
+        print('Despegue') 
+\end{lstlisting} 
+
+
+\subsection*{Bucles \textit{for}} En Python, el bucle \textit{for} itera directamente sobre los elementos de una secuencia o iterable (listas, tuplas, cadenas, rangos, etc.): 
+\begin{lstlisting}[language=Python, caption={Estructura de bucle for.}] 
+    for variable in secuencia: 
+        # bloque de codigo a ejecutar con cada elemento 
+\end{lstlisting} 
+%%%%%%%%%%%%%%%%
+\section{Operadores Booleanos y Comparaciones}
+
+Python utiliza las palabras clave en ingles \textit{and}, \textit{or} y \textit{not} para los operadores logicos booleanos, en lugar de simbolos como \texttt{\&\&}, \texttt{||} o \texttt{!} de otros lenguajes. Esto mejora la legibilidad al leer expresiones logicas complejas. Por ejemplo:
+
+\begin{lstlisting}[language=Python, caption={Ejemplo de operadores booleanos en Python}]
+if (x > 0 and x < 10) or x == 20:
+    print("x es un numero valido")
+\end{lstlisting}
+
+Estos operadores tienen semantica de cortocircuito: \texttt{A and B} primero evalua \texttt{A}; si \texttt{A} es \textit{False}, la expresion completa es \textit{False} y \texttt{B} no se evalua en absoluto. Si \texttt{A} es \textit{True}, entonces el resultado depende de \texttt{B}. De forma similar, \texttt{A or B} evalua primero \texttt{A}; si \texttt{A} es \textit{True}, devuelve inmediatamente \textit{True}, sin evaluar \texttt{B}. Esta propiedad permite constructos idiomaticos como:
+
+\begin{lstlisting}[language=Python, caption={Uso de or como valor por defecto}]
+resultado = valor or "valor_por_defecto"
+\end{lstlisting}
+
+El operador \texttt{not} es una negacion logica unaria: \texttt{not X} es \textit{True} si \texttt{X} es \textit{False}, y viceversa. Tiene menor precedencia que los operadores de comparacion, por lo que una expresion como \texttt{not a == b} en realidad se interpreta como \texttt{not (a == b)}.
+
+En cuanto a operadores de comparacion, Python ofrece los habituales: igual a (\texttt{==}), distinto (\texttt{!=}), menor que (\texttt{<}), mayor que (\texttt{>}), menor o igual (\texttt{<=}), mayor o igual (\texttt{>=}). Estos devuelven un valor booleano (\texttt{True} o \texttt{False}). Cabe destacar que, a diferencia de otros lenguajes, el resultado de una comparacion encadenada como \texttt{a < b < c} es una sola evaluacion booleana, sin necesidad de operadores logicos adicionales.
+
+Adicionalmente, Python tiene los operadores de identidad \texttt{is} y \texttt{is not}, que comparan si dos nombres se refieren al mismo objeto en memoria:
+
+\begin{lstlisting}[language=Python, caption={Comparacion de identidades}]
+a = [1, 2, 3]
+b = [1, 2, 3]
+print(a == b)   # True
+print(a is b)   # False
+\end{lstlisting}
+
+El operador \texttt{is} se usa comunmente para comprobar contra \texttt{None}: la forma correcta es \texttt{if variable is None:}, en lugar de \texttt{== None}.
+
+Los operadores de comparacion tienen menor precedencia que los aritmeticos, pero mayor que los booleanos. Por ejemplo, la expresion \texttt{a == 1 or 2} se interpreta como \texttt{(a == 1) or 2}, lo cual siempre devolvera \textit{True}. Lo correcto es escribir \texttt{a == 1 or a == 2}.
+
+En resumen, Python ofrece un conjunto completo de operadores logicos y de comparacion, cuya semantica es clara y legible. La evaluacion de cortocircuito y la posibilidad de encadenar comparaciones permiten escribir condiciones de manera compacta y expresiva.
+
+\section{Alcance de las Variables y Convenciones de Estilo (PEP 8)}
+
+Python maneja los ambitos de variables segun la regla \textbf{LEGB}: Local, Enclosing, Global, Builtins. Esto indica el orden de busqueda de nombres. Si una variable no se encuentra en el ambito local, se busca en el envolvente (enclosing), luego en el global, y finalmente en los nombres predefinidos.
+
+Por defecto, una variable asignada dentro de una funcion es local. Para modificar una variable global desde dentro de una funcion, se utiliza la palabra clave \texttt{global}:
+
+\begin{lstlisting}[language=Python, caption={Uso de global}]
+x = 5
+def foo():
+    global x
+    x = 10
+foo()
+print(x)  # imprime 10
+\end{lstlisting}
+
+La palabra clave \texttt{nonlocal} se emplea en funciones anidadas para modificar variables del ambito externo no global:
+
+\begin{lstlisting}[language=Python, caption={Uso de nonlocal}]
+def hacer_sumador(x):
+    def sumar(y):
+        nonlocal x
+        x += 1
+        return x + y
+    return sumar
+\end{lstlisting}
+
+Respecto al estilo, la PEP 8 define convenciones ampliamente aceptadas:
+
+\begin{itemize}
+    \item Indentacion: 4 espacios por nivel.
+    \item Longitud de linea: maximo 79 caracteres.
+    \item Nombres: variables y funciones en \textit{snake\_case}, clases en \textit{CapWords}, constantes en MAYUSCULAS.
+    \item Espaciado: usar espacios alrededor de operadores binarios y despues de comas.
+    \item Importaciones: primero librerias estandar, luego externas, al final locales.
+\end{itemize}
+
+Seguir estas reglas favorece la legibilidad y consistencia del codigo. Herramientas como \texttt{flake8}, \texttt{pylint} o \texttt{black} ayudan a automatizar su aplicacion.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
