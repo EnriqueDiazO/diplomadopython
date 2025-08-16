@@ -132,6 +132,7 @@
 \definecolor{namecolor}{cmyk}{1,.50,0,.10} 
 
 \usepackage{listings}
+\usepackage{listingsutf8}
 \renewcommand{\lstlistingname}{Scripts}% Listing -> Algorithm
 \renewcommand{\lstlistlistingname}{Lista de \lstlistingname }% List of Listings -> List of Algorithms
 
@@ -151,10 +152,25 @@
     showspaces=false,                
     showstringspaces=false,
     showtabs=false,                  
-    tabsize=2
+    tabsize=2,
+    inputencoding=utf8
 }
 
-\lstset{style=mystyle}
+\lstset{style=mystyle,
+literate=%
+{á}{{\'a}}{1}%
+{é}{{\'e}}{1}%
+{í}{{\'i}}{1}%
+{ó}{{\'o}}{1}%
+{ú}{{\'u}}{1}%
+{Á}{{\'A}}{1}%
+{É}{{\'E}}{1}%
+{Í}{{\'I}}{1}%
+{Ó}{{\'O}}{1}%
+{Ú}{{\'U}}{1}%
+{¿}{{\textquestiondown}}1 
+{¡}{{\textexclamdown}}1
+}
 % Rutas de figuras de este módulo
 
 \usepackage{coloredtheorem}
